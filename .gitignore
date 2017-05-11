@@ -1,0 +1,8 @@
+undefined
+*~*
+nohup.out
+fuseki/*
+!fuseki/install.sh
+.idea/
+*.iml
+commandnotes.txt

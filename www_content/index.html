@@ -1,0 +1,1007 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+        <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+  <meta name="description" content="This is The Wikipedia Context Visualization - getting an Overview of the Wikipedia Links">
+  <meta name="keywords" content="Visualization,DBPedia,Wikipedia,Graph-drawing,GraphRetrival,backlinks,search">
+  <meta name="author" content="Rasmus Krempel">
+  
+  <script src="settings.js"></script>
+  <script src="js/jquery-1.10.2.js"></script>
+  
+  <script src="sigmajs/sigma.min.js"></script>
+  <script src="sigmajs/plugins/sigma.parsers.gexf.min.js"></script>
+  <script src="sigmaComm.js"></script>
+    <script src= "CostumEdgeRenderer.js"></script>
+    <script src= "CostumNodeRenderer.js"></script>
+    <script src= "CostumLabelRenderer.js"></script>
+    <script src="Filtermenu.js"></script>
+
+   <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> -->
+
+ <style type="text/css">
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .mainWindow{
+	margin:20px;
+	margin-bottom:20px;
+	padding:20px;
+	background-color:#CCCCEE;
+	border:0.5px solid;
+	border-color:#000000;
+	border-radius:10px;
+	
+    }
+	
+    .example {
+	font-size:9pt;
+    }
+    .examplelink {
+	
+	padding:2px;
+	padding-left:20px;
+	font-size:13pt;
+	border:1px solid;
+	border-color:#000000;
+	border-radius:3px;
+	background-color:#FFFFFF;
+	display: inline-block;
+    }
+    .example-top {
+	font-size:13pt;
+	font-weight:bold;
+    }
+    .topic {
+	font-size:15pt;
+	color:#0000FF;
+    }
+    
+    .context-avarage {
+	color:#FF3300;
+    }
+    
+    .context-important {
+	
+	font-size:16pt;
+    }
+    
+    .context-unimportant {
+	font-size:12pt;
+    }
+    .context-central {
+	color:#FF0000;
+    }
+    
+    .context-decentral {
+    
+	color:#FF6600;
+    }
+
+
+</style>
+  <script type="text/javascript">
+  var sigInst;
+  var destiny = "";
+  var loadedExamples = false;
+  var Examples = undefined;
+  var BrowsingWindow=undefined;
+  var ViewerWindow=undefined;
+  var ExperimentID;
+  var PublicExperimentID;
+  var infos = Array();
+
+  function init() {
+
+  	//Container Viewport
+
+  	var Viewportw=$(window).width();
+	var Viewporth=$(window).height();
+	var showwidth = 400;
+	var showheight = 400;
+	if(Viewportw >800){
+		showwidth = showwidth +((Viewportw -showwidth)/4);
+	}else if(Viewportw<400){
+		showwidth = Viewportw-50;
+	}
+
+	if(Viewporth >800){
+		showheight =Viewporth -400;
+	}else if(Viewporth<400){
+		showheight = Viewporth-30;
+	}
+
+	$("#container").css("width",showwidth+"px");
+	$("#container").css("height",showheight+"px");
+	$('h1').css({"padding-top": $(".navbar").height() + "px"});
+	$('h2').css({"padding-top":  $(".navbar").height() + "px"});
+	Bake_bake();
+	counter=0;
+	//Init Fields with Drag Drop and Change Events
+	for(var i =1;i<6;i++) {
+		infos[i] = Array();
+		infos[i]["valid"] ="";
+		infos[i]["status"] ="empty";
+		$( NameofField(i) ).change(function(){
+			var thei = FieldofName($(this).attr('id'));
+			checkLink($(this).val(),thei); 
+		});
+		/*
+		$( NameofField(i) ).on({
+
+			} 
+		});*/
+		
+	}
+
+
+
+	//Create the Example in The Front
+        createViewMini("./examplegraph/MainExample_en.gexf");
+
+//Get params and insert them into the Fields
+    vars = checkParams();
+    if(vars.length>2){
+    	for(var i =0;i<5;i++) {
+    		$("#URI"+(i+1)).val(vars[i]);
+    	}
+    	checkLinks();
+    }
+
+
+	//load Examples
+	loadExamples();	
+	// This is bit dirty but it should do the Trick...
+	while(ExperimentID === undefined && BackeFail && counter < 99999 ){counter++;};
+	$("#IdentificationField").val(ExperimentID);
+	//Load Own Visualisations
+	GetMyViz();
+	//Get Last Entered Uris etc.
+	fillValidQueue();
+	//Get The Public Hash (Important for the creation of Visualization Links)
+	if(PublicExperimentID ===undefined)
+		getPublicHash();
+	//$( ".URIInsert" ).autocomplete({
+	//	source: ValidQueue
+
+	// });
+	$('.noEnterSubmit').keypress(function(e){
+		if ( e.which == 13 ){
+			e.preventDefault();
+			
+		}
+	});
+	 
+	 
+	/*
+	//Add Select Check link event
+			select: function( event, ui ) {
+		checkLink(data,thei);
+		}
+	*/
+
+
+  }
+  function createExistingFile(destiny){
+ 
+	isLoadin();
+	
+	finishedLoadinMULE(destiny);
+	$("#sigma-parent").show();
+  }
+  /**
+  ** Load Example File and Visualize it
+  **/
+  function loadExamples(){
+	
+	if(loadedExamples == true)
+		return;
+	
+	//Get Examples from file
+	$.ajax({
+		url: "Examples.json",
+		dataType: "json",
+		//Loading
+		success: function(data) {
+			Examples = data.examples;
+			//individual creation
+			for(i= 0; Examples.length >i; i++)
+				loadExampleShow( Examples[i]);
+
+			for(i= 0; Examples.length >i; i++)
+				loadExample( Examples[i]);
+
+			
+	
+		}
+	});
+  
+	loadedExamples=true;
+	
+  }
+  
+  /**
+  **Retrieve the last Visualisations Created by the User
+  **/
+  function GetMyViz(){
+	
+
+	$.ajax({
+		url: Setting_servername+'?' +'command=getMyViz&ReturnFunc=_getMyViz&User='+ExperimentID,
+		type: 'GET',
+		dataType: "jsonp",
+		jsonpCallback: "_getMyViz",
+		success: function (data, textStatus) {
+			MyVizz = JSON.parse(data);
+			//individual creation
+			for(i= 0; MyVizz.length >i; i++){
+				loadMyViz( MyVizz[i]);
+				ValidQueueAdd(MyVizz[i],false);
+			}
+			
+		}
+	});
+  
+	
+  }
+  /**
+  **Retrieve a list of Valid URL s
+  **
+  **/
+  function fillValidQueue(){
+	
+	$.ajax({
+		url: Setting_servername+'?' +'command=getLastUris&ReturnFunc=_lastUris&User='+ExperimentID,
+		type: 'GET',
+		dataType: "jsonp",
+		jsonpCallback: "_lastUris",
+		success: function (data, textStatus) {
+			Uris = JSON.parse(data);
+	
+			//individual creation
+			for(i= 0; Uris.length >i; i++){
+				ValidQueueAdd(Uris[i],false);
+			}
+			ValidQueueAdd(undefined);
+			RefreshOwn();
+		}
+	});
+	
+}
+
+  //Resets the search mode
+  function Startover() {
+      $("#Permalinkwrap").hide();
+      $("#downloadLinkwrap").hide();
+      $("#navigation").show();
+      
+      
+    }
+  //This is a dummy 
+  function NotifyClick(blaa, blub){
+  
+  }
+  function loadExample(example) {
+	
+
+    outer = $( '<div/>', {
+    'id':example.id ,
+    'class': '#example'
+	})
+    $('<p/>', {
+    'text': example.title,
+    'class': 'example-top'
+    }).appendTo(outer);
+    $('<p/>', {
+    'text': example.description,
+    'class': 'example'
+    }).appendTo(outer);
+    
+    things = Array();
+    for(var i =0; i< example.Links.length;i++){
+	var mantel = $('<div/>',{
+	'class': 'examplelink'
+	});
+	$('<a/>', {
+	'text': example.Links[i],
+	'href': example.Links[i],
+	'target': "_blank"
+	}).appendTo(mantel);
+	mantel.appendTo(outer);
+	
+	 $('<br/>').appendTo(outer);
+	things.push("'"+ShortenLink(example.Links[i])+"'");
+	
+    }
+    
+    
+    onclickCall = "CreateExample(["+things.join(',')+"] );ForceCheckLinks();";
+    $('<input/>', {
+	'type': "button",
+	'value': "Remix Example",
+	'class': "btn btn-sm btn-default",
+	'onclick':onclickCall
+	}).appendTo(outer);
+
+
+	out = outer.html();
+	temp = $("#Examples");
+	temp.append(out);
+    
+  }
+  //Load Examples to the Example Window
+function loadExampleShow(example) {
+	
+
+    outer = $( '<div/>', {
+    'id':example.id ,
+    'class': '#example'
+	})
+    $('<p/>', {
+    'text': example.title,
+    'class': 'example-top'
+    }).appendTo(outer);
+    $('<p/>', {
+    'text': example.description,
+    'class': 'example'
+    }).appendTo(outer);
+    
+    things = Array();
+    for(var i =0; i< example.Links.length;i++){
+	var mantel = $('<div/>',{
+	'class': 'examplelink'
+	});
+	$('<a/>', {
+	'text': example.Links[i],
+	'href': example.Links[i],
+	'target': "_blank"
+	}).appendTo(mantel);
+	mantel.appendTo(outer);
+	
+	 $('<br/>').appendTo(outer);
+	things.push("'"+ShortenLink(example.Links[i])+"'");
+	
+    }
+	$('<br/>').appendTo(outer);
+
+    var thelink_en = createLink(example.id+"_en","TheExampleMan");
+	var thelink_de = createLink(example.id+"_de","TheExampleMan");
+	OpenExample = "window.open('"+thelink_en+"','_viz').focus()";
+	
+    $('<input/>', {
+	'target': "_viz",
+	'class': "btn btn-sm btn-default",
+	'value':"Open English",
+	'onclick': OpenExample
+	}).appendTo(outer);
+	$('<br/>').appendTo(outer);
+	
+	OpenExample = "window.open('"+thelink_de+"','_viz').focus()";
+	
+	
+    $('<input/>', {
+	
+	'class': "btn btn-sm btn-default",
+	'target': "_viz",
+	'value':"Open German",
+	'onclick': OpenExample
+	}).appendTo(outer);
+
+	$('<br/>').appendTo(outer);
+
+	out = outer.html();
+	temp = $("#Examplefocus");
+	temp.append(out);
+    
+  }
+
+
+  
+ function loadMyViz(MyViz) {
+
+
+
+    outer = $('<div/>', {
+    'id':MyViz.Hash ,
+    
+    'class': '#example'
+	})
+
+    $('<p/>', {
+    'text': MyViz.Hash,
+    'class': 'example-top'
+    }).appendTo(outer);    
+        $('<a/>', {
+	'text': "Open",
+	'href':createLink(MyViz.Hash,PublicExperimentID),
+	'target': "_blank"
+	}).appendTo(outer);
+	$('<br/>').appendTo(outer);
+    things = Array();
+    for(var i =0; i< MyViz.Links.length;i++){
+	var mantel = $('<div/>',{
+	'class': 'examplelink'
+	});
+	
+	    $('<a/>', {
+	'text': MyViz.Links[i],
+	'href': "http://en.wikipedia.org/wiki/" +MyViz.Links[i],
+	
+	'target': "_blank"
+	}).appendTo(mantel);
+	mantel.appendTo(outer);
+	
+	 $('<br/>').appendTo(outer);
+	things.push("'"+ShortenLink(MyViz.Links[i])+"'");
+	ValidQueueAdd(MyViz.Links[i]);
+    }
+    
+    
+	out = outer.html();
+	temp = $("#MyVis");
+	temp.append(out);
+    
+    
+    
+}
+
+function drop(ev)
+{
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("Text");
+	$(ev.target).val(data);
+	var thei = FieldofName($(ev.target).attr('id'));
+	checkLink(data,thei);
+}
+  
+function drag(ev)
+{
+	var target = $(ev.target);
+	if(target.context.tagName =="A"){
+		name = target.text();
+	}else{
+	name = target.find( "A" ).text();
+	ev.dataTransfer.setData("Text",name);
+	}
+
+}
+  function RefreshOwn() {
+	var lasts = ValidQueueLast(10);
+
+    var outer = $("#LastUsedLinks");
+    outer.empty();
+
+    for(var i=0; i < lasts.length ;i++){
+		var mantel = $('<div/>',{
+	'class': 'examplelink'
+	});
+		
+	    $('<a/>', {
+	'text': lasts[i],
+	'href': "http://en.wikipedia.org/wiki/"+lasts[i],
+	'target': "_blank"
+	}).appendTo(mantel);
+	mantel.appendTo(outer);
+	
+	 $('<br/>').appendTo(outer);
+    }
+	
+	$( ".examplelink" ).attr("draggable","true");
+	
+	$( ".examplelink" ).attr("ondragstart","drag(event)");
+    
+  }
+  
+  
+</script>
+
+</head>
+
+
+
+
+<body onload ="init();" style="background-color:#FFFFFF">
+	       <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    
+    
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+			  <!--
+Todo redo Examples
+-->
+<!--
+            <span class="icon-bar"></span>
+-->
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">cvServer Local Wikipedia Map</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#AboutAnchor">About</a></li>
+			  <!--
+Todo redo Examples
+-->
+<!--
+           	<li><a href="#ExampleAnchor">Examples</a></li>
+-->
+	    	<li><a href="#CreateAnchor" class="active">Create</a></li>
+	    	<li><a href="#howtoAnchor">How to?</a></li>
+	    <li><a href="#WhatandWhy">Background</a></li>
+	    <li><a href="#Disclaimer">Disclaimer</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
+ <h1 align="center">cvServer (Local Wikipedia Map)</h1>
+
+  <h2 align="center" id="AboutAnchor" style="margin-top:40px;">About</h2>
+
+  <div class="mainWindow" id="About" >
+  <div class="container-fluid">
+  <div class="row">
+
+  <div class="col-md-12">
+  	<p>
+  		Create your own Wikipedia Map: 
+  		<b>choose</b> starting-articles and link-language, <b>browse</b> the visualization, <b>filter</b> the interesting Nodes, <b>download and share</b> your visualization.
+	</p>
+  	<p style="margin-left:10px;align:top;">
+		This is a visualization shows a description of this project as interactive browsing example.
+
+
+
+	</p>
+
+  </div>
+
+  </div>
+  
+
+  <div class="row">
+  <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+	<h3><b>choose</b></h3>
+	choose 3-5 Wikipedia Articles. Like This:<br>
+	<a href="./pics/Remix-examples.png"> <img src="./pics/Remix-examples.png" class="thumbnail" style="max-width:300px;"/></a>
+	<!--
+  	<div class='examplelink'> <a href="https://en.wikipedia.org/wiki/Entity_linking">Entity_linking</a></div><br>
+  	<div class='examplelink'> <a href="https://en.wikipedia.org/wiki/Linked_data">Linked_data</a class='examplelink'></div><br>
+  	<div class='examplelink'> <a href="https://en.wikipedia.org/wiki/Information_retrieval">Information_retrieval</a></div><br>
+  	<div class='examplelink'> <a href="https://en.wikipedia.org/wiki/Visualization_%28computer_graphics%29">Visualization_(computer_graphics)</a></div><br>
+  	<div class='examplelink'> <a href="https://en.wikipedia.org/wiki/Force-directed_graph_drawing">Force-directed_graph_drawing</a></div><br> -->
+  </div>
+  <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+<div Style="align:top;">
+	<h3><b>browse</b></h3>
+	<strong>Zoom</strong> by using the mouse wheel or a scrolling or zooming gesture <br/>
+
+	(depends on your device)
+	<br/><strong>Drag</strong> by clicking and holding on the background
+	<br/><strong>Focus a node</strong> by clicking on it once <br/>
+	all non-neighbor nodes and edges will be hidden
+	<br/><strong>Open an article</strong> by clicking on a node a second time, after focusing<br/>
+	the article opens in a window or tab
+	<br/><strong>Unfocus</strong> by clicking on the background
+  </div>
+  </div>
+
+  </div>
+ <div class="row">
+ <div class="col-xs-0 col-sm-1 col-md-2 col-lg-3"></div>
+  <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7">
+
+  <div  id="sigma-parent">
+	<div style="background-color:#FFFFFF;width:400px;height:400px;" id="container"></div>
+  </div>
+  This is the self describing example<br>
+  Test controls here!<br>
+  <a href="display.html?existingFile=MainExample_en&idReferencer=TheExampleMan" target="_viz">open in viewer</a>
+
+  </div>
+  </div>
+
+ <div class="row">
+<div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+<h3><b>filter</b></h3>
+	Filter the visualization by different Attributes!
+	<br>
+	See whats "hidden" from you. Hidden means that it isn't linked by the source nodes you initially choose. While browsing from the start nodes this articles cant be reached even if they are Linked. Use the Hidden Context facet to focus on the "Hidden" context.
+	<br>
+	<div id="FacetteDiv" style:"max-width:200px;"></div>
+
+	<br>
+	Futher Filters: <br/>
+	See IF DBpedia holds a class for an Article. Articles are typed by DBpedia if possible. See what classes are used and what articles have no class attached.
+
+</div>
+<div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+<h3><b>download/share</b></h3>
+All the output you have produced is available for download under a Creative Commons License. Feel free to reuse, remix etc. The output is a gexf file which is easy to read and ready to be interpreted by software like <a href="https://gephi.org/" target="_blank">Gephi</a>. Include the gexf file into your own Website by using <a href="http://sigmajs.org/" target="_blank">sigmajs</a>.
+found something awesome, surprising or interesting show it to your friends and co-workers. Press the share link and copy+paste the link into any Social Network, Email or Text-processor.</td>
+</div>
+</div>
+</div>
+
+  <h2 style="margin-left:30px"><a href="#navigation">Start now!</a></h2>
+		   <!--
+Todo redo Examples
+-->
+<!--
+  <h3 style="margin-left:30px"><a href="#ExampleAnchor">see more Examples</a></h3>
+-->
+
+
+
+  </div>
+
+<!--
+Todo redo Examples
+-->
+<!--
+ <h2 align="center" id="ExampleAnchor">Examples</h2>
+  <div class="mainWindow" id="Exampleshow" >
+	The examples show different meaningful combinations and searches in the Wikipedia.
+	<div id="Examplefocus"  style="height:450px;overflow:scroll;" align="center"></div>
+  </div>
+-->
+
+
+  <h2 align="center" id = "CreateAnchor" >Create</h2>
+
+  
+  <div  class="mainWindow" Style="border-width:1px;" id= "LoadingDiv" hidden="hidden" >
+
+	<div><h2>LOADING</h2></div>
+	<p>this may take a few seconds...</p><img style="display: block;margin-left: auto;margin-right: auto;" src="pics/loadinfo.net.gif"/>
+	<div id="ReportDiv"> </div>
+	
+  </div>
+  
+  <div class="mainWindow" id = "navigation"  > 
+	<div class="container-fluid">
+	<div class="row">
+	
+	<div id="chooseStartpoints" Style="top:10px;"   class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+	<h3>Starting Articles</h3>
+	 <form name="search" action="JavaScript:checkandCreate();">
+
+	  	<div style="margin-top:5px;">#1<input class="URIInsert" id="URI1" size="30" ondrop="drop(event)"></input><a href="" target="_TheNavigator" hidden="true" id="lookup1">?</a></div><br/>
+	  	<div style="margin-top:5px;">#2<input class="URIInsert" id="URI2" size="30" ondrop="drop(event)"></input><a href="" target="_TheNavigator" hidden="true" id="lookup2">?</a></div><br/>
+	  	<div style="margin-top:5px;">#3<input class="URIInsert" id="URI3" size="30" ondrop="drop(event)"></input><a href="" target="_TheNavigator" hidden="true" id="lookup3">?</a></div><br/>
+	  	<div style="margin-top:5px;">#4<input class="URIInsert" id="URI4" size="30" ondrop="drop(event)"></input><a href="" target="_TheNavigator" hidden="true" id="lookup4">?</a></div><br/>
+	  	<div style="margin-top:5px;">#5<input class="URIInsert" id="URI5" size="30" ondrop="drop(event)"></input><a href="" target="_TheNavigator" hidden="true" id="lookup5">?</a></div><br/>
+	  	Link-source 
+		<select id="lang" size="1" style="margin-top:5px;">
+			<option value="en" selected>English Wikipedia page-links</option>
+			<option value="de">German Wikipedia page-links</option>
+	  	</select>
+		<br>
+	  	<input type="submit"  value="create view" id="createbutton" name="createbutton"  class="btn btn-lg btn-default" style="margin-top:20px;"></input>
+		<br>
+		<div style ="background-color:#EEEEEE;border:0.5px solid;border-color:#000000;border-radius:10px;margin:10px;padding:10px;">
+		Press <b>Ctrl+H</b> / <b>⌘+H</b> to open your browser history!<br>
+		copy <input type="text" value="wikipedia.org/wiki/"  onFocus="this.select()" size="19" readonly /> <b>Ctrl+C</b> / <b>⌘+C</b> <br>
+		paste into filter field <b>Ctrl+P</b> / <b>⌘+P</b><br>
+		drag your Links Into the Fields.<br>
+		<h4><a href="#howtoAnchor">More help</a></h4>
+		</div>
+	  </form>
+
+	</div>
+
+	 <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" Style="top:10px;margin:10px;padding:10px;overflow:scroll;height:500px;">
+	<div  >
+		<div id="LastUsed"  >
+			<h3 onclick="$('#LastUsedLinks').slideToggle('slow');" >Last used</h3>
+			<div id="LastUsedLinks">
+			</div>
+		</div>
+		<div id="MyVisContainer">
+			<h3 onclick="$('#MyVis').slideToggle('slow');">My Visualizations</h3>
+			<div id="MyVis"  >
+			</div>
+		</div>
+		<div id="exampleContainer">
+			<h3 onclick="$('#Examples').slideToggle('slow');">Examples</h3>
+			<div id="Examples"  >
+			</div>
+		</div>
+	  </div>
+	  </div>
+  </div>
+  </div>
+  </div>
+	<div class="mainWindow" id="Permalinkwrap" hidden=hidden>
+	<h1><a href="" id="Permalink" target="_viz">Open Result</a></h1>
+	
+	<br> 
+	
+	<input type="button" onClick="Startover();" value="Start Over" class="btn btn-lg btn-default"></input> 
+	
+	</div>
+	
+	
+	<div class="mainWindow" id="downloadLinkwrap" hidden=hidden>
+	<p  style="font-size:14;">
+	<a href="" id= "downloadLink">Download</a> 
+	<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img style="width:80px" src="Logos/by-sa.png"/></a>
+open with <a  href="http://gephi.org/">Gephi</a> for example.
+	</p> 
+	
+
+	 
+	
+	</div>
+	<div class="mainWindow" id="UserInfo" >
+    <h3 align="center">User Information</h3>
+    
+    <p>Your Hash: <input type="text" id="IdentificationField"  onFocus="this.select()"/> <input type="button" value="change ID" id="confirmIDChange" onClick="Bake_redo($('#IdentificationField').val())"> </p>
+    <p>Remember my Hash on this Computer: <input id="Keeploggedin" type= "checkbox" checked="true" onChange="Bake_crumble()"/></p> 
+	<div style="margin:10px">
+	<li>The hash helps you keeping track of your visualizations and suggests.</li>
+	<ul>
+		<li>on other computers/devices</li>
+		<li>if you don't stay logged in (unchecked the box)</li>
+	</ul>
+	<li>The hash is anonymous as long as you don't share it with others</li>
+	<li>It helps me keeping track on what is going on here without knowing exactly who you are and Where your from etc. (remember this is part of my thesis) </li>
+	</div>
+    </div>
+
+<h2 align="center" id="howtoAnchor">How to use?</h2>
+  <div class="mainWindow" id="howtoUse" >
+	<p>To create your own visualization enter the Wikipedia links or headings of the topics you want to explore.<ber/> 
+	Use the <strong>English</strong> Wiki-links or headings even if you are using the German links to visualize!
+
+	<br><br>
+	<h4>Use your browser History</h4><br>
+	
+	Open your Browser History and check out what wiki articles you have browsed. Press <b>Ctrl+H</b> / <b>⌘+H</b> to open your browser history
+	<br>enter <input type="text" value="wikipedia.org/wiki/"  onFocus="this.select()" size="19" readonly /> as Filter. 
+	Drag and drop the URLs of the Wikipedia Articles you have visited into the Fields!
+	<br>
+	<a href="./pics/History.jpg"> <img src="./pics/History.jpg"  class="thumbnail" style="max-width:300px;"/></a>
+
+
+		<br>
+	<h4>Remix Examples</h4><br><br>
+	The Examples can be remixed, just add or replace articles.  
+	<a href="./pics/Remix-examples.png"> <img src="./pics/Remix-examples.png" class="thumbnail" style="max-width:300px;"/></a>
+
+
+
+	<br><h4>How to <b>choose</b> <a href="http://en.wikipedia.org/wiki/Example">Example</a>... for example</h4>
+	Here all ways are shown how to add the article example to your input collection.
+	<br/>Just type the phrase "Example" into an input field
+
+	The Input Fields disambiguates your Input. So its it translate the alternative spellings of articles titles and changes them to the Exact Identifier.
+	On the right of the Input fields the last links you used and the visualizations you created are stored. Also the examples from the <a href="#ExampleAnchor">Examples-section</a> are stored in the Menu. If You want to select single links and add them to your field just Drag and Drop them into the input-fields by catching them on the white background of the box they are in.
+
+	<br/>Copy the URL form the address-bar: "http://en.wikipedia.org/wiki/Example"
+	<br/><a href="./pics/example-URL.png"> <img src="./pics/example-URL.png" class="thumbnail" style="max-width:300px;" /></a>
+	<br/>Copy+Paste the title of an article: "Example"
+	<br/><a href="./pics/example-Title.png"> <img src="./pics/example-Title.png" class="thumbnail" style="max-width:300px;"/></a>
+	<br/>drag and drop links into the fields (this is supported by most modern browsers).
+	<br/><a href="./pics/example-dragdrop.png"> <img src="./pics/example-dragdrop.png"  class="thumbnail" style="max-width:300px;"/></a>
+	<br/>Browse wikipedia in a window or tab and collect the article identifiers afterwards by using the back-button of your browser.
+
+	<br><h4>How to reuse found articles</h4>
+	<br>On the right of the Search Fields there is a menu that shows your <b>Last used</b> articles, the section "<b>My Visualizations</b>" for the last visualizations you have created and the <b>Examples</b>. These Sections contain links to articles. These article bubbles can be dragged and dropped straight into the search fields.
+	<a href="./pics/DragDrop.png"> <img src="./pics/DragDrop.png"  class="thumbnail" style="max-width:300px;"/></a>
+
+	<h4>
+		Tips
+	</h4>
+	<br><b>Be specific</b><br> choose specific topics. The more general a topic is the more nodes will end up in the Results. This crowds the output with nodes and makes it harder read the result. Work with examples or choose specific articles. 
+	<br>
+	<b>Examples:</b>
+	<br>If you are looking for music choose an don't choose a broad genre as start node. Don't use  <a href="http://en.wikipedia.org/wiki/Heavy_metal_music">Heavy_metal_music</a> use <a href ="http://en.wikipedia.org/wiki/Power_metal">Power_metal</a>.
+	<br>If you are looking for cities try not to take more than one. Cities can have a lot in common For example public transportation, countries or continents they are in. If you are interested in transport choose the article <a href="http://en.wikipedia.org/wiki/Transport_in_Cologne">Transport in Cologne</a> in favor of <a href="http://en.wikipedia.org/wiki/Cologne">Cologne</a>.
+	<br>
+	<br><b>Just one more</b><br> Choose more than 3 topics for input! Choose one oder two more to get more interesting results. Adding more topics won't restrict the result as in other searches.
+	<br>
+	<b>Examples:</b>
+	<br>Add a year or a century like the <a href="http://en.wikipedia.org/wiki/1960s">1960s</a> or <a href="http://en.wikipedia.org/wiki/1996">1996</a> to show the Time Context
+	<br>
+	<br><b>Don't get Confused</b><br> Articles describe specific things and sometimes there are Synonyms. Do not Confuse them
+	<br>
+	<b>Examples:</b>
+	<br><a href="http://en.wikipedia.org/wiki/Cologne">Cologne</a> and <a href="http://en.wikipedia.org/wiki/Eau_de_Cologne">Eau de Cologne</a> . 
+	<br><a href="http://en.wikipedia.org/wiki/Batman">Batman</a> as a general idea of Batman and <a href="http://en.wikipedia.org/wiki/Batman_%28TV_series%29">Batman (TV Series)</a> featuring Adam West and a lot of <b>Booooom</b>'s and <b>WHAM</b>'s . 
+
+  </div>
+
+  
+
+ 
+
+
+  
+
+
+ 
+
+  <h2 align="center"  id="WhatandWhy">Background</h2>
+  <div class="mainWindow" >
+   <h2 align="center" id="MotivationAnchor" >Motivation</h2>
+   <p style="margin-top:20px;">
+	Wikipedia is one of the largest on-line information resources. There is an article concerning nearly everything of common interest. Reading the whole wikipedia would take more than a life time.<br>
+	Wikipedia articles are linked to other articles. They create a gigantic network of links.<br><br>
+	The motivation of this page is to get a little more oversight of the facts and connections which are part of the Wikipedia. To get the birds eye view of Wikipedia we have to focus a part of of the whole we want to focus. This focus should describes a field of articles that interrelate.
+	<br>
+
+	<h3>For whom?</h3>
+	<br>This site  has no special Audience. But it may be op special use for some user types.
+
+	<br>
+	
+	<h4>The wikipedia consumer</h4>
+		The consumer can get an overview of the articles and the fields their interested in. 
+	<h4>Wikipedia authors</h4>
+     For wikipedia authors this project can show whats on their field and whats link's with "their" articles.
+	<h4>The semantic Web /Linked Data enthusiast</h4>
+		The Filters show where the Semantic Wikipedia ends and where the ontology of DBpedia has its practical limits. Especially what was classified in this DBpedia version and what not!
+	<h4>The bias concerned</h4>
+		In the last month there has been a lot of press about the focus of Wikipedia and the lack of female authors. This visualization may help to identify the spots where the Wikipedia is more "complete" and "representative" where it seems to be more biased and incomplete. Even if the bias will be reduced it shows the state before.
+
+	<br><h4>How to choose what you are Interested in?</h4><br>
+	
+	
+	The Answer this page offers is to choose some central articles and let the links define the Part of the whole you are seeing. Like you let the Keywords define the data you get presented by an search-engine.<br><br>
+	The following tool creates visualization out of topics represented by Wikipedia articles. Between these topics the context is represented in the form of linked articles. Its like searching in a search engine like Google where you type search Terms into a search-bar. Except that the terms are defined by articles not by words. This helps not to get confused by homonyms, like <i>Springfield</i> as a city name. They can also be much more detailed than the literal based search term. The context shows other articles which lie between the articles you initially choose. These context also interrelate and show how good represented they are in the complete context.
+	
+	The main difference to a normal search result is that it isn't a list of links! Its kind of a map. So you've got more information, what searchterm an article tends to.<br><br>
+	<br>
+	<h4>Use your browser History</h4><br><br>
+	
+	Open your Browser History and check out what wiki articles you have browsed. Press <b>Ctrl+H</b> / <b>⌘+H</b> to open your browser history
+	<br>enter <input type="text" value="wikipedia.org/wiki/"  onFocus="this.select()" size="19" readonly /> as Filter. Drag and drop the URLs of the Wikipedia Articles you have visited into the Fields!
+	<br><br>
+
+	<h4>Hidden from browsing</h4><br><br>
+	
+	A reason for this project was to explore back-links. These back-links create hidden articles. These Articles do NOT show up when browsing the Wikipedia from the start-nodes. They only link the start nodes but the start nodes don't link back.
+	<br>
+	Checkout the <b>HiddenContext</b> filter in the visualization!
+
+	<br><br>
+	<h4>See whats special</h4><br><br>
+
+	You enter your search by Wiki Articles you allready visited or know about. Showing the obvious connections does not give you any information. In The Result the special things are emphesized. <br><b>A big node is special</b>. <br><b>A red node is central</b>. 
+
+	<br><br>
+	<h4>Whats Known?</h4><br><br>
+	
+	The Wikipedia is incomplete by design but its open to everyone to participate. 
+	The DBpedia project has information about the Type of an entity in Wikipedia has. Like Place for things like New York, The Netherlands, Bari etc. But they are not complete.
+	As a consequences for this Project:
+	A specific "time" is taken as a reference point. This time is described by a version, in this case its DBpedia version 3.9.
+	<br><br>
+	<h4>Discuss<br><br></h4> 
+	Wikipedia is all ways on change and only specific people participate ion Wikipedia. They construct it and also choose its focus. 
+	A focus that is important for the gigantic number of passive users that use Wikipedia as an encyclopedia. This project visualizes these focuses to makes them Shareable and for Discussion.
+	<br/><br>
+	 <h4>Long living static results</h4> <br><br>
+	 A lot of projects on the web "die" after the Author changes his live and focuses on something new. The complex machinery of of Databases and Software stops working and there is no one left starting it again. This is a largely observable phenomena, especially in academia. 
+	 To avoid this Problem and make it easy maintainable this project relies on <b>NON hard to maintain</b> <b>static</b> <b>self sufficient</b> <b>reference able</b> software core. 
+	<br><br>
+	
+	<br>This means:
+	
+	<br>The possibility of creating new visualizations may stop after the project is over.
+	
+	<br><br><b>BUT</b>
+	<br>
+	<br>The visualizations you created will be reference able on a long term. They only rely on client side technology (Java-script, HTML5). They only need Hosting by a Web-server and no maintenance of Databases and other dynamic sources. 
+	<br> AND
+	<br> You can download them and archive, modify, analyze them for your self.
+	So all the things you created will be reference able more or less long term and they will more or less look the same.
+	
+	<br/>
+	
+	 
+
+	</p>
+
+	<h2>Tech and Theory</h2>
+
+	<h3 >What's shown?</h3>
+	<p>The visualization uses the links of Wikipedia articles. They are provided by the <a href="http://wiki.dbpedia.org/" target="_blank">DBPedia Project</a>. right now its using the generalized Uris with the English and German-Wikipedia-links from <a href="http://wiki.dbpedia.org/Downloads39" target="_blank">DBPedia Version 3.9</a>.
+	 <br/> The process looks for links that interrelate the topics. So there are just contexts displayed which have links to at least two of the topics entered. 
+	 <br/>If there is too much context the process will automatically filter. Numerous contexts between just two topics will be filtered for reasons of readability. The more general the topic are the more likely it's context is being filtered.
+     <br/>The visualization also takes passive links into account. If you just look at the articles of the topic you choose. You won't be able to find them, because the topic articles don't link them. But the topics are linked by them.
+     These nodes are called  Hidden Contexts, because they cant be found exploring from the start-nodes.
+	
+	 <br/>Lists and categories are ignored because they tend to be incomplete and confusing.
+	 <br/>The types attached by DBpedia (only by <a href="http://wiki.dbpedia.org/Ontology" target="_blank">DBpedia ontology</a>) are browse able by facet. 
+
+	 <br>They show you if and how an article is classified by the DBpedia Project. This should help you Filter, but its also a good Indicator for normal user to see what automatic data discovery identifies and how the world view of DBPedia, the DBPedia Ontology, is structured. For experts it good to identify the border of the semantic DBpedia by types. 
+
+	</p> 
+	<h3>Why</h3>
+	<p>
+
+	 <br/>A lot of project have used DBpedia Data in an exploitative manner. But the Semantic web People centered their attention on the Semantic Links. These datasets are relatively sparse. The Page Links on the other hand form a very dense Network. Dense data tends to be very hard to visualize. This projects try's to face this problem by selections, like other Projects do with more specialized datasets. for example <a href ="http://www.visualdataweb.org/relfinder.php" target="_blank">Rel Finder</a> and <a href ="http://linkedjazz.org/" target="_blank">Linked Jazz</a>.
+	 <br>
+
+	<br/>How could anything not interrelate? The large sum of links also Indicates that everything is related to everything else. This wouldn't be a good data.
+	But how good are the links and how does the Picture the Wikipedia Links which are created by Humans also represent the structures of human association. In short term, does the picture this visualization creates correspond with the picture you already got in your head? Is there more to be discovered or does Wikipedia only show relations so common that everyone is a better expert than wikipedia is? 
+	</p>
+
+
+  </div>
+  
+
+  
+  <h3 align="center">Disclaimer</h3>
+	<div class="mainWindow" id="Disclaimer">
+		<h4>Author: Rasmus Krempel</h4>
+		<p><a href="http://kups.ub.uni-koeln.de/id/eprint/7533">This was part of my thesis.</a> and the original should be running under <a href="http://lwmap.uni-koeln.de">http://lwmap.uni-koeln.de</a> .</p>
+		<p>This project uses modern browser features, please use up to-date browsers! Only modern versions of Firefox, Chrome/Chromium and Safari are supported. The Microsoft Internet Explorer may also work in Versions in versions over 7, but this is not tested nor is all functionality guaranteed.</p>	
+		<p>All Download able Data is licensed under the <a href="http://creative commons.org/licenses/by-sa/3.0/"  target="_blank">CC BY-SA 3.0</a> License and is based on the data of <a href="http://wiki.dbpedia.org/" target="_blank">DBpedia.org</a> and therefor on <a href="http://wikipedia.org/" target="_blank">Wikipedia</a>.</p>
+		<p>The Software is tying to keep your data as anonymous as possible please keep your hashes private!<p/>
+		<p style ="font-size:16pt;">Created by Rasmus Krempel <bold>r.Krempel_at_uni-koeln.de</bold></p>
+		 
+	</div>
+	<div class="mainWindow" id="Thanks" style="">
+	
+		<p >Technology and Data used from: 
+			<br/>
+			<a href="http://wikipedia.org/" target="_blank">Wikipedia</a>, 
+			<a href="http://wiki.dbpedia.org/" target="_blank">DBPedia.org</a>, 
+			<a href="https://gephi.org/" target="_blank">Gephi</a>, 
+			<a href="http://sigmajs.org/" target="_blank">sigmajs</a>, 
+			<a href="http://nodejs.org/" target="_blank">Node.js</a>, 
+			<a href="http://jena.apache.org/" target="_blank">Apache Jena</a>
+		</p>
+  	</div>
+	</div>
+	
+	<!--MODAL-->
+	<div class="modal fade" id="FinishedModal" tabindex="-1" role="dialog" aria-labelledby="Share" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+	<div class="modal-header">
+			<button data-dismiss="modal" class="close" type="button">×</button>
+			<h3>
+				Your visualization is ready!
+			</h3>
+	</div>
+	<div class="modal-body">	
+		<h1><a href="" id="Permalinkhigh" target="_viz">Open Result</a></h1>
+	</div>
+    </div>
+  </div>
+	
+	
+	
+
+
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<!-- End Piwik Code -->
+
+</body>
+</html>
+

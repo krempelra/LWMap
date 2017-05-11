@@ -1,0 +1,476 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+      <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+
+  
+  <meta name="description" content="This is The Wikipedia Context Visualization - getting an Overview of the Wikipedia Links">
+  <meta name="keywords" content="Visualization,DBPedia,Wikipedia,Graph-drawing,GraphRetrival">
+  <meta name="author" content="Rasmus Krempel">
+  
+  <script src="js/jquery-1.10.2.js"></script>
+
+    <!-- THE Run Librarys -->
+    <script src="sigmajs/sigma.min.js"></script>
+    <script src="sigmajs/plugins/sigma.parsers.gexf.min.js"></script>
+    <script src= "CostumEdgeRenderer.js"></script>
+    <script src= "CostumNodeRenderer.js"></script>
+    <script src= "CostumLabelRenderer.js"></script>
+    <script src="settings.js"></script>
+    <script src="sigmaComm.js"></script>
+    <script src="Filtermenu.js"></script>
+
+<style type="text/css">
+    body {
+      margin: 0;
+    }
+    #container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .mainWindow{
+	margin:10px;
+	margin-bottom:20px;
+	padding:5px;
+	background-color:#CCCCEE;
+    }
+	
+    .example {
+	font-size:9pt;
+    }
+    .examplelink {
+	font-size:10pt;
+    }
+    .example-top {
+	font-size:10pt;
+	font-weight:bold;
+    }
+    .topic {
+	font-size:14pt;
+	color:#0000FF;
+    }
+    
+    .context-avarage {
+	color:#FF3300;
+    }
+    
+    .context-important {
+	
+	font-size:13pt;
+    }
+    
+    .context-unimportant {
+	font-size:10pt;
+    }
+    .context-central {
+	color:#FF0000;
+    }
+    
+    .context-decentral {
+    
+	color:#FF6600;
+    }
+
+</style>
+
+  <script type="text/javascript">
+  var sigInst;
+  var ExperimentID;
+  var PublicExperimentID;
+  var VisHash;
+  var infos = Array();
+
+  function init() {
+  
+  
+  	Bake_bake();
+	
+	sigma.utils.pkg('sigma.canvas.edges');
+	//check for parameters in the URL
+	vars = checkParams();
+	VisHash = vars["existingFile"];
+	NotifyBackend(vars["idReferencer"]);
+	
+
+	
+	//Get The Public Hash (Important for the creation of Visualisation Links)
+	if(PublicExperimentID ===undefined)
+		getPublicHash();
+
+	$('#copyUriModal').on('shown.bs.modal',function () {
+		   $("#PermalinkCopyPaste").focus();
+		});
+
+        if(vars["FilterString"] !== undefined && vars["FilterOptions"] !== undefined)
+          importFilters(vars["FilterOptions"],vars["FilterString"]);
+
+  //Start Hiding things
+$('#ReportDiv').slideToggle('slow');
+$('#navtips').slideToggle('slow');
+$('#desc').slideToggle('slow');
+
+  }
+  function NotifyBackend(Otheruser){
+
+	
+	//OpenVisualsisation
+	$.ajax({
+		url: Setting_servername +'?' +'command=OpenVisualisation&User='+ExperimentID+"&VisHash="+ VisHash+"&SharingUser="+Otheruser,
+		type: 'GET',
+      dataType: "jsonp",
+	  jsonpCallback: "_openvis",
+		//Loading
+		success: function(data) {
+	
+		}
+	});
+  
+	loadedExamples=true;
+	
+  }
+  
+  
+  
+  function NotifyClick(URI,FocusOpen){
+
+	
+	//OpenVisualsisation
+	$.ajax({
+		url: Setting_servername +'?' +'command=ClickVisualisation&User='+ExperimentID+"&VisHash="+ VisHash+"&URI="+URI+"&FocusOpen="+FocusOpen,
+		type: 'GET',
+      dataType: "jsonp",
+	  jsonpCallback: "_clickvis",
+		//Loading
+		success: function(data) {
+	
+		}
+	});
+  
+	loadedExamples=true;
+	
+  }
+  
+    function createExistingFile(destiny){
+        var loc = window.location.protocol +"//"+ window.location.hostname;
+
+        if(window.location.port!= 80)
+            loc=loc+":"+window.location.port;
+
+	    $("#downloadLink").prop("href", decodeURI(loc+"/pubfiles/"+destiny+".gexf"));
+	    $("#downloadLinkwrap").show();
+	    var linkwithoutparams = "";
+
+	    if (window.location.href.indexOf('?') >= 0) 
+			linkwithoutparams = window.location.href.slice(0, window.location.href.indexOf('?'));
+	    
+	    else 
+	    	linkwithoutparams = window.location.href;
+
+	    TheLINK = createLink(destiny,PublicExperimentID);
+	    
+	    $("#Permalink").prop("href",TheLINK);
+	    $("#PermalinkCopyPaste").prop("value",TheLINK);
+		$("#Permalinkwrap").show();
+      	printReport(destiny);
+      
+      	$("#sigma-parent").show();
+      
+      	destiny = decodeURI(loc+"/pubfiles/"+destiny+".gexf");
+      
+      	createView(destiny);
+
+  }
+
+
+  function showLegende(){
+  		
+
+		$("#Meta").css({"max-height": "95%" });
+		$("#LegendeWrap").show();
+  }
+
+  function hideLegende(){
+  		$("#LegendeWrap").hide();
+		$("#Meta").height("auto");
+
+
+  }
+  function selectSharing(){
+    
+
+   var text_input = $('#PermalinkCopyPaste');  
+   
+     
+   if(Filter.filters.length >0 ){
+    
+    TheLINK=text_input.prop("value");
+    var Filterstring = GetFilterString();
+    var FilterOptions =GetFilterOptions();
+   $('#PermalinkCopyPasteFilters').prop("value",TheLINK+"&FilterString="+Filterstring+"&FilterOptions="+FilterOptions);
+     text_input.hide();
+     $('#PermalinkCopyPasteFilters').show();
+
+    }else{
+      $('#PermalinkCopyPasteFilters').hide();
+      text_input.show();
+    }
+  }
+  
+  
+</script>
+</head>
+
+<body  onload ="init();">
+<!--- Floating Over Everything-->
+<div id="Meta" style="position:absolute; max-width:30%; top:4px;left:4px;z-index:10;border-style:solid; border-width:5px; background-color:#FFFFFF;height:100%;resize:both;overflow:auto;">
+	
+	<div id="LegendeControll" style="margin 20px;font-size:14pt;" > 
+		<input type="button" value="-" onClick="hideLegende()"></input>
+
+		/
+
+		<input type="button" value="+" onClick="showLegende()"></input></div>
+			<div id="Permalinkwrap">
+		<a style="font-size:18px;" href="#copyUriModal" data-toggle="modal" onclick="selectSharing()" >Share/Download</a><br>
+    <a style="font-size:18px;" href="index.html#CreateAnchor" id="BackToMainWithRemix" target="_blank" >Remix</a>
+			
+			<!--<a id="dl" onClick="$('.sigma-scene').toDataURL();">Download Canvas</a>-->
+		</div>		
+		<div class="legende"   id="LegendeWrap"> 
+
+		<h4>Report <input class="Toggler" type="button" value="+/-" onclick="$('#ReportDiv').slideToggle('slow');"/>
+		</h4>
+		<div id="ReportDiv"> </div>
+		
+		
+		
+		
+		
+		<h4>Navigation <input class="Toggler" type="button" value="+/-" onclick="$('#navtips').slideToggle('slow');"/>
+		</h4>
+		
+		<div id="navtips" >
+			<strong>Zoom</strong> by using the mouse wheel or a scrolling or zooming gesture <br/>
+		
+			(depends on your device)
+			<br/><strong>Drag</strong> by clicking and holding on the background
+			<br/><strong>Focus a node</strong> by clicking on it once <br/>
+			all non-neighbor nodes and edges will be hidden
+			<br/><strong>Open an article</strong> by clicking on a node a second time, after focusing<br/>
+			the article opens in a window or tab
+	  	</div>
+		<h4 >Symbology <input class="Toggler" type="button" value="+/-" onclick="$('#desc').slideToggle('slow');"/>
+		</h4>
+		<div  id="desc">
+		<table class="table table-striped">
+<thead>
+<tr>
+<td>Symbol</td>
+<td>description</td>
+</tr>
+</thead>
+<tbody>
+    <tr>
+        <td colspan ="2">
+            Topics and Contexts
+        </td>
+    </tr>    
+
+    <tr>
+        <td>
+            <!--Topic-->
+            <svg height="50" width="50">
+              <circle cx="25" cy="25" r="20" fill="#0092FE" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+        </td>
+        <td>
+            Topic
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!--Avarage-->
+            <svg height="50" width="50">
+              <circle cx="25" cy="25" r="10" fill="#C9361B" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+        </td>
+        <td>
+            Context
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan ="2">
+            Special - Size
+        </td>
+    </tr>    
+
+
+    <tr>
+        <td>
+            <!--Special-->
+            <svg height="50" width="50">
+              <circle cx="25" cy="25" r="15" fill="#C9361B" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+
+        </td>
+        <td>
+            special
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!--generic-->
+            <svg height="50" width="50">
+              <circle cx="25" cy="25" r="5" fill="#C9361B" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+
+        </td>
+        <td>generic</td>
+    </tr>
+        <tr>
+        <td colspan ="2">
+            topic connections - color intensity
+        </td>
+    </tr>    
+
+
+    <tr>
+        <td>
+            <!--central-->
+            <svg height="50" width="50">
+              <circle cx="25" cy="25" r="10" fill="#B80000" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+
+        </td>
+        <td>
+            connected to all topics
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!--decentral-->
+            <svg height="50" width="50">
+              <circle cx="25" cy="25" r="10" fill="#E28241" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+        </td>
+        <td>connected to 2 topics</td>
+    </tr>
+        <tr>
+        <td colspan ="2">
+            Connections
+        </td>
+    </tr>    
+    <tr>
+        <td>
+            <!--central-->
+            <svg height="50" width="50">
+            	
+            	
+            	 <line x1="0" y1="0" x2="50" y2="50" style="stroke:#000000;stroke-width:2" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+
+        </td>
+        <td>
+           Topic to Topic Link
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!--central-->
+            <svg height="50" width="50">
+            	
+            	
+            	 <line x1="0" y1="0" x2="50" y2="50" style="stroke:#0092FE;stroke-width:2" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+
+        </td>
+        <td>
+           Topic to Context Link
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <!--central-->
+            <svg height="50" width="50">
+            	
+            	
+            	 <line x1="0" y1="0" x2="50" y2="50" style="stroke:#C9361B;stroke-width:2" />
+              Sorry, your browser does not support inline SVG.  
+            </svg> 
+
+        </td>
+        <td>
+           Context to Context Link
+        </td>
+    </tr>
+
+
+
+</tbody>
+</table>
+		</div >
+        <h4>Filter<input class="Toggler" type="button" value="+/-" onclick="$('#FacetteDiv').slideToggle('slow');"/> </h4>
+
+    <div id="FacetteDiv"><div id="Facet_show"></div> </div>
+	</div>
+</div>
+<div style="width:100%;height=100%; z-index:5;" id="sigma-parent"  >
+
+	<div style="background-color:#FFFFFF;" id="container"></div>
+    
+</div>
+
+<div class="modal fade" id="copyUriModal" tabindex="-1" role="dialog" aria-labelledby="Share" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+		<div class="modal-header">
+			<button data-dismiss="modal" class="close" type="button">×</button>
+			<h3>
+				Copy to clipboard and share Link
+			</h3>
+		</div>
+		<div class="modal-body">
+			<label>Copy to clipboard with <b>Ctrl+C</b> / <b>⌘+C</b></label>
+
+      <input type="text" id="PermalinkCopyPaste" value="" style="width:97%" class="uri input-xxlarge" onFocus="this.select()">
+			<input type="text" id="PermalinkCopyPasteFilters" value="" style="width:97%" class="uri input-xxlarge" onFocus="this.select()">
+			<br><br>
+			<div id="downloadLinkwrap">
+				<p >
+				<a href="" style="font-size:10;" id= "downloadLink">Download</a> 
+				<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img style="width:80px" src="Logos/by-sa.png"/></a>
+				open with <a style="font-size:10;" href="http://gephi.org/">Gephi</a> for example.
+			</div>
+			
+			
+			
+		</div>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+</body>

@@ -1,0 +1,956 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+  <meta lastmodifieddate="2014-04-15">
+    <creator>Gephi 0.8</creator>
+    <description>License: CC BY-SA 3.0 http://creativecommons.org/licenses/by-sa/3.0/ 
+ Created by script Wikip Importable Harvester V0.9.12 created by Rasmus Krempel 
+Depends on Data of DBpedia, see http://dbpedia.org/About 
+Active report: 
+
+14:00:26.417: 
+ExeccutableID: Wikip Importable Harvester V0.9.12
+14:00:26.417: 
+File Hash: MainExample_en
+14:00:26.421: 
+Added Article: http://dbpedia.org/resource/Entity_linking
+
+14:00:26.421: 
+Added Article: http://dbpedia.org/resource/Linked_data
+
+14:00:26.422: 
+Added Article: http://dbpedia.org/resource/Visualization_(computer_graphics)
+
+14:00:26.422: 
+Added Article: http://dbpedia.org/resource/Information_retrieval
+
+14:00:26.422: 
+Added Article: http://dbpedia.org/resource/Force-directed_graph_drawing
+
+14:00:30.825: 
+Edges:90
+14:00:30.825: 
+nodes:28
+</description>
+  </meta>
+  <graph defaultedgetype="undirected" timeformat="double" mode="dynamic">
+    <attributes class="node" mode="static">
+      <attribute id="IsContext" title="IsContext" type="integer" />
+      <attribute id="Classes" title="Classes" type="string" />
+      <attribute id="HiddenContext" title="HiddenContext" type="integer" />
+    </attributes>
+    <attributes class="edge" mode="static">
+      <attribute id="ConnectionType" title="ConnectionType" type="integer" />
+    </attributes>
+    <nodes>
+      <node id="0" label="Entity_linking">
+        <attvalues>
+          <attvalue for="IsContext" value="0" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="25.24" />
+        <viz:position x="-164.36627" y="-99.60433" z="0.0" />
+        <viz:color r="0" g="163" b="253" />
+      </node>
+      <node id="1" label="Linked_data">
+        <attvalues>
+          <attvalue for="IsContext" value="0" />
+          <attvalue for="Classes" value="MusicGenre,TopicalConceptGenre" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="26.24" />
+        <viz:position x="12.800089" y="-157.68353" z="0.0" />
+        <viz:color r="0" g="154" b="249" />
+      </node>
+      <node id="2" label="Visualization_(computer_graphics)">
+        <attvalues>
+          <attvalue for="IsContext" value="0" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="30.279999" />
+        <viz:position x="62.94725" y="111.32646" z="0.0" />
+        <viz:color r="0" g="118" b="230" />
+      </node>
+      <node id="3" label="Information_retrieval">
+        <attvalues>
+          <attvalue for="IsContext" value="0" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="29.2" />
+        <viz:position x="187.97212" y="-4.847075" z="0.0" />
+        <viz:color r="0" g="127" b="235" />
+      </node>
+      <node id="4" label="Force-directed_graph_drawing">
+        <attvalues>
+          <attvalue for="IsContext" value="0" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="26.0" />
+        <viz:position x="-99.759094" y="151.05557" z="0.0" />
+        <viz:color r="0" g="156" b="250" />
+      </node>
+      <node id="5" label="Graph_drawing">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="MusicGenre,TopicalConceptGenre" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="6.0382977" />
+        <viz:position x="-44.476616" y="113.996025" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="6" label="Supervised_learning">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="5.7200003" />
+        <viz:position x="-50.057636" y="-54.161896" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="7" label="Informative_modelling">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="1" />
+        </attvalues>
+        <viz:size value="9.800001" />
+        <viz:position x="125.430244" y="53.353733" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="8" label="Semantic_Web">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="MusicGenre,TopicalConceptGenre" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="4.1934185" />
+        <viz:position x="-5.659808" y="-97.666626" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="9" label="Tulip_(software)">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="Software,WorkCreativeWork" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="20.0" />
+        <viz:position x="-70.84045" y="105.27093" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="10" label="Polythematic_Structured_Subject_Heading_System">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="1" />
+        </attvalues>
+        <viz:size value="11.16" />
+        <viz:position x="47.29737" y="-91.90606" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="11" label="Information_extraction">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="7.231111" />
+        <viz:position x="-0.46926883" y="-52.066605" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="12" label="Word-sense_disambiguation">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="6.3476925" />
+        <viz:position x="-72.16521" y="-55.08285" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="13" label="Open_data">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="4.539623" />
+        <viz:position x="37.61605" y="-128.65488" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="14" label="Cytoscape">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="Software,WorkCreativeWork" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="10.771429" />
+        <viz:position x="-64.067566" y="137.17894" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="15" label="Data_mining">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="MusicGenre,TopicalConceptGenre" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="3.6680703" />
+        <viz:position x="30.892067" y="0.7012392" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="16" label="Fluidinfo">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="Software,WorkCreativeWork" />
+          <attvalue for="HiddenContext" value="1" />
+        </attvalues>
+        <viz:size value="9.276923" />
+        <viz:position x="67.87263" y="-84.67849" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="17" label="Tim_Berners-Lee">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="AgentPerson" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="4.207611" />
+        <viz:position x="51.76614" y="-68.94753" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="18" label="Ontology_(information_science)">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="4.115262" />
+        <viz:position x="9.948248" y="-15.282107" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="19" label="Natural_language_processing">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="4.1980424" />
+        <viz:position x="-29.315842" y="-41.597126" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="20" label="Outline_of_human–computer_interaction">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="1" />
+        </attvalues>
+        <viz:size value="4.47027" />
+        <viz:position x="80.853" y="15.378299" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="21" label="Statistical_classification">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="4.67099" />
+        <viz:position x="-44.706036" y="-38.407623" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="22" label="Meurs_Challenger">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="Software,WorkCreativeWork" />
+          <attvalue for="HiddenContext" value="1" />
+        </attvalues>
+        <viz:size value="18.3" />
+        <viz:position x="-22.016941" y="128.54538" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="23" label="Federated_database_system">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="1" />
+        </attvalues>
+        <viz:size value="5.2985916" />
+        <viz:position x="100.614845" y="-81.255615" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="24" label="Computer_science">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="3.1268175" />
+        <viz:position x="17.76386" y="21.253525" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="25" label="Explicit_semantic_analysis">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="17.191305" />
+        <viz:position x="-60.34261" y="-77.78865" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+      <node id="26" label="Wikipedia">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="Website,WebPage,WorkCreativeWork" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="3.2995281" />
+        <viz:position x="-75.91021" y="-94.225716" z="0.0" />
+        <viz:color r="212" g="87" b="43" />
+      </node>
+      <node id="27" label="Algorithm">
+        <attvalues>
+          <attvalue for="IsContext" value="1" />
+          <attvalue for="Classes" value="" />
+          <attvalue for="HiddenContext" value="0" />
+        </attvalues>
+        <viz:size value="3.2117908" />
+        <viz:position x="-78.83238" y="27.058474" z="0.0" />
+        <viz:color r="226" g="130" b="65" />
+      </node>
+    </nodes>
+    <edges>
+      <edge id="0" source="0" target="1" weight="5.0">
+        <attvalues>
+          <attvalue for="weight" value="5.0" />
+          <attvalue for="ConnectionType" value="0" />
+        </attvalues>
+      </edge>
+      <edge id="1" source="0" target="3" weight="5.0">
+        <attvalues>
+          <attvalue for="weight" value="5.0" />
+          <attvalue for="ConnectionType" value="0" />
+        </attvalues>
+      </edge>
+      <edge id="89" source="0" target="6" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="88" source="0" target="8" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="87" source="0" target="11" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="86" source="0" target="12" weight="20.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="20.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="85" source="0" target="19" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="84" source="0" target="21" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="83" source="0" target="25" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="82" source="0" target="26" weight="20.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="20.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="81" source="0" target="27" weight="10.0">
+        <viz:color r="0" g="163" b="253" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="80" source="1" target="8" weight="20.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="20.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="79" source="1" target="10" weight="4.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="78" source="1" target="13" weight="20.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="20.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="77" source="1" target="16" weight="4.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="76" source="1" target="17" weight="10.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="75" source="1" target="18" weight="4.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="74" source="1" target="23" weight="4.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="73" source="1" target="26" weight="10.0">
+        <viz:color r="0" g="154" b="249" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="2" source="2" target="3" weight="5.0">
+        <attvalues>
+          <attvalue for="weight" value="5.0" />
+          <attvalue for="ConnectionType" value="0" />
+        </attvalues>
+      </edge>
+      <edge id="72" source="2" target="5" weight="10.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="71" source="2" target="7" weight="4.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="70" source="2" target="9" weight="4.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="69" source="2" target="14" weight="4.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="68" source="2" target="15" weight="10.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="67" source="2" target="18" weight="10.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="66" source="2" target="20" weight="4.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="65" source="2" target="22" weight="4.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="64" source="2" target="24" weight="10.0">
+        <viz:color r="0" g="118" b="230" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="63" source="3" target="6" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="62" source="3" target="7" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="61" source="3" target="10" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="60" source="3" target="11" weight="10.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="59" source="3" target="12" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="58" source="3" target="13" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="57" source="3" target="15" weight="10.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="56" source="3" target="16" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="55" source="3" target="17" weight="10.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="54" source="3" target="19" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="53" source="3" target="20" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="52" source="3" target="21" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="51" source="3" target="23" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="50" source="3" target="24" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="49" source="3" target="25" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="48" source="3" target="26" weight="4.0">
+        <viz:color r="0" g="127" b="235" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="47" source="4" target="5" weight="20.0">
+        <viz:color r="0" g="156" b="250" />
+        <attvalues>
+          <attvalue for="weight" value="20.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="46" source="4" target="9" weight="10.0">
+        <viz:color r="0" g="156" b="250" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="45" source="4" target="14" weight="20.0">
+        <viz:color r="0" g="156" b="250" />
+        <attvalues>
+          <attvalue for="weight" value="20.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="44" source="4" target="22" weight="4.0">
+        <viz:color r="0" g="156" b="250" />
+        <attvalues>
+          <attvalue for="weight" value="4.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="43" source="4" target="27" weight="10.0">
+        <viz:color r="0" g="156" b="250" />
+        <attvalues>
+          <attvalue for="weight" value="10.0" />
+          <attvalue for="ConnectionType" value="1" />
+        </attvalues>
+      </edge>
+      <edge id="42" source="5" target="9" weight="6.18">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.18" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="41" source="5" target="14" weight="6.18">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.18" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="40" source="5" target="22" weight="5.34">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.34" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="39" source="5" target="24" weight="6.18">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.18" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="38" source="5" target="27" weight="6.18">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.18" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="37" source="6" target="11" weight="6.45">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.45" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="36" source="6" target="12" weight="6.84">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.84" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="35" source="6" target="19" weight="6.15">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.15" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="34" source="6" target="21" weight="10.2">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="10.2" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="33" source="8" target="10" weight="5.24">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.24" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="32" source="8" target="11" weight="6.45">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.45" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="31" source="8" target="16" weight="5.15">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.15" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="30" source="8" target="17" weight="9.72">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="9.72" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="29" source="8" target="18" weight="9.34">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="9.34" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="28" source="8" target="26" weight="2.64">
+        <viz:color r="231" g="152" b="163" />
+        <attvalues>
+          <attvalue for="weight" value="2.64" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="27" source="9" target="14" weight="5.89">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.89" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="26" source="9" target="27" weight="5.89">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.89" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="25" source="11" target="15" weight="5.26">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.26" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="24" source="11" target="17" weight="6.45">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.45" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="23" source="11" target="19" weight="12.6">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="12.6" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="22" source="12" target="18" weight="6.84">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.84" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="21" source="12" target="19" weight="12.99">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="12.99" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="20" source="12" target="21" weight="6.84">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.84" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="19" source="12" target="26" weight="9.4800005">
+        <viz:color r="231" g="152" b="163" />
+        <attvalues>
+          <attvalue for="weight" value="9.4800005" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="18" source="12" target="27" weight="6.84">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.84" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="17" source="13" target="17" weight="4.73">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="4.73" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="16" source="15" target="18" weight="5.26">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.26" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="15" source="15" target="19" weight="11.41">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="11.41" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="14" source="15" target="21" weight="10.75">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="10.75" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="13" source="15" target="24" weight="9.31">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="9.31" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="12" source="17" target="20" weight="3.89">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="3.89" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="11" source="17" target="24" weight="4.9">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="4.9" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="10" source="18" target="24" weight="4.52">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="4.52" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="9" source="19" target="24" weight="10.200001">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="10.200001" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="8" source="19" target="25" weight="5.84">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.84" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="7" source="19" target="26" weight="2.64">
+        <viz:color r="231" g="152" b="163" />
+        <attvalues>
+          <attvalue for="weight" value="2.64" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="6" source="20" target="24" weight="3.89">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="3.89" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="5" source="21" target="27" weight="5.49">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="5.49" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="4" source="24" target="27" weight="6.92">
+        <viz:color r="235" g="167" b="174" />
+        <attvalues>
+          <attvalue for="weight" value="6.92" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+      <edge id="3" source="25" target="26" weight="5.84">
+        <viz:color r="231" g="152" b="163" />
+        <attvalues>
+          <attvalue for="weight" value="5.84" />
+          <attvalue for="ConnectionType" value="2" />
+        </attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

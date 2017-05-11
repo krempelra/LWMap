@@ -1,0 +1,36 @@
+{ 
+"verbose": true, 
+"ServerPort": "8090",
+"HostnametoListenTo": "127.0.0.1:8090",
+"Javaprefix": "java -jar -Xmx2g",
+
+"LocationJar": "/opt/cvServer/java_exec/contextviz_server.jar", 
+"DataVersion": "DBpedia 16.04",
+"TDBStoreFolders":{ 
+	"en":"http://localhost:3030/en/query",
+	"de":"http://localhost:3030/de/query"
+},
+"TDBStorePrefix":{ 
+	"en":"http://dbpedia.org/resource/", 
+	"de":"http://dbpedia.org/resource/"
+},
+
+"TDBStoreRedirect": "http://localhost:3030/redirect/query",
+"inputFolder": "/srv/cvserver_data/txt/", 
+"outputFolder": "/usr/local/apache2/htdocs/pubfiles/",
+"LookupFolderFromOutside": "http://127.0.0.1:8080/pubfiles/",
+
+"UserTracking" : {
+
+"type":"mysql",
+"Username":"worker",
+"Password":"workerpassword",
+"host":"localhost",
+"database":"cvTracking"
+
+
+
+}
+
+
+}

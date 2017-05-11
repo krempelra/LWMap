@@ -1,0 +1,63 @@
+@prefix fuseki:  <http://jena.apache.org/fuseki#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tdb:     <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix ja:      <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix :        <#> .
+
+
+[] rdf:type fuseki:Server ;
+ fuseki:services (
+     <#serviceDE>
+     <#serviceEN>
+     <#serviceREDIRECT>
+     <#serviceClasses>
+   ) .
+
+
+[] ja:loadClass "com.hp.hpl.jena.tdb.TDB" .
+tdb:DatasetTDB  rdfs:subClassOf  ja:RDFDataset .
+tdb:GraphTDB    rdfs:subClassOf  ja:Model .
+
+<#datasetEN> rdf:type      tdb:DatasetTDB ;
+     tdb:location "/srv/cvserver_data/triples/enPagelink" ;
+	.
+<#datasetDE> rdf:type      tdb:DatasetTDB ;
+     tdb:location "/srv/cvserver_data/triples/dePagelink" ;
+	.
+<#datasetREDIRECT> rdf:type      tdb:DatasetTDB ;
+     tdb:location "/srv/cvserver_data/triples/redirects" ;
+	.
+<#datasetClasses> rdf:type      tdb:DatasetTDB ;
+     tdb:location "/srv/cvserver_data/triples/classes" ;
+	.
+<#serviceREDIRECT> rdf:type fuseki:Service ;
+    fuseki:name                       "redirect" ;      
+    fuseki:serviceQuery               "query" ;
+    fuseki:serviceQuery               "sparql" ;  
+    fuseki:serviceReadGraphStore    "data" ;   
+    fuseki:dataset           <#datasetREDIRECT> ;
+	.
+<#serviceDE> rdf:type fuseki:Service ;
+    fuseki:name                       "de" ;
+    fuseki:serviceQuery               "query" ;       
+    fuseki:serviceQuery               "sparql" ;  
+    fuseki:serviceReadGraphStore    "data" ;  
+    fuseki:dataset           <#datasetDE> ;
+    .
+
+<#serviceEN> rdf:type fuseki:Service ;
+    fuseki:name                       "en" ;      
+    fuseki:serviceQuery               "query" ;
+    fuseki:serviceQuery               "sparql" ;  
+    fuseki:serviceReadGraphStore    "data" ;   
+    fuseki:dataset           <#datasetEN> ;
+	.
+
+<#serviceClasses> rdf:type fuseki:Service ;
+    fuseki:name                       "classes" ;      
+    fuseki:serviceQuery               "query" ;
+    fuseki:serviceQuery               "sparql" ;  
+    fuseki:serviceReadGraphStore    "data" ;   
+    fuseki:dataset           <#datasetClasses> ;
+

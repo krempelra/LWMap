@@ -1,0 +1,140 @@
+{
+    "examples": [
+
+	{
+            "id": "20sSwingandCrime",
+            "title": "The 20s in fashion and Swing Music and Crime",
+            "description": "Only few nodes are drawn to the center by the other contexts that interrelate here. This Examples lists some jazz musicans from time of swing music and featues New York city as an central but non special context. The book the Lay in the morgue, which features most of the themes is highlighted as special and big context.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Swing_music",
+                "http://en.wikipedia.org/wiki/Fashion",
+                "http://en.wikipedia.org/wiki/1920s",
+                "http://en.wikipedia.org/wiki/Gangster"
+            ]
+        },{
+            "id": "Posthumanism",
+            "title": "Posthumanism in science Fiction",
+            "description": "This example shows some newer science fiction writers and the old poineer Phillip K Dick. All together write a lot about reality and Posthumansim. The main topic is science fiction as small red spot in the middle while the biggest and most significant context is the article about transhumanism in Fiction.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Posthumanism",
+                "http://en.wikipedia.org/wiki/Hannu_Rajaniemi",
+                "http://en.wikipedia.org/wiki/Charles_Stross",
+                "http://en.wikipedia.org/wiki/Philip_K._Dick"
+            ]
+        },
+
+    
+
+        {
+            "id": "Scifi_Movies_reality",
+            "title": "The distortion of Reality in Sci-fi movies",
+            "description": "This is the more popular movies example with the reality topic. \nThe English visualization shows the dream argument and Phillip K. Dick as the most prominent nodes.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Inception",
+                "http://en.wikipedia.org/wiki/The_Matrix",
+                "http://en.wikipedia.org/wiki/Blade_Runner",
+                "http://en.wikipedia.org/wiki/Reality"
+            ]
+        },
+
+        {
+            "id": "Kafa",
+            "title": "Kafka by Context",
+            "description": "This is a simple combination of three works of Franz Kafka and the time context of the 1920. The most central node is of cause Kafka. \nBut there are some more short story s placed very central in the visualization",
+            "Links": [
+                "http://en.wikipedia.org/wiki/The_Trial",
+                "http://en.wikipedia.org/wiki/The_Castle_(novel)",
+                "http://en.wikipedia.org/wiki/The_Metamorphosis",
+                "http://en.wikipedia.org/wiki/1920s"
+            ]
+        },
+	        {
+            "id": "Thematic_Videogames",
+            "title": "Video games with themes",
+            "description": "This examples shows how to search Video game receptions of a special genre. The genre specification is the ancient Rome and Greece. The game genres are first person shooter and the city building game genre. \nThe context between the ancient civilizations is ignored because it would be getting very big and wouldnt be very informative for the whole. There are Some Games very central to the Topic even if none manages to satiy all search criteria.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Ancient_Rome",
+                "http://en.wikipedia.org/wiki/Ancient_Greece",
+                "http://en.wikipedia.org/wiki/City-building_game",
+                "http://en.wikipedia.org/wiki/First-person_shooter"
+            ]
+        },
+        {
+            "id": "Thematic_Genres",
+            "title": "Genres with Themes",
+            "description": "This is a test that should show the similarity in genres these are literature genres. The context is more more dense than the context of the computer game example. But it shows some authors and books which are connected By the general Topics . The overlapping ancient civilization links are ignored.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Ancient_Rome",
+                "http://en.wikipedia.org/wiki/Ancient_Greece",
+                "http://en.wikipedia.org/wiki/Thriller_%28genre%29",
+                "http://en.wikipedia.org/wiki/Travel_literature"
+            ]
+        },{
+            "id": "Cuba_Crisis",
+            "title": "The Cuba crisis",
+            "description": "This example shows the leaders Kruschov and Kennedy in the context of Cuba and the 1960s, in one word the Cuban missle crisis. But not only the missile crisis has a prominent place, also bay of pigs invasion etc. \nThe German network is a bit less dense on this topic and also features German potiticians more prominent than the English Wikipedia does.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Cuba",
+                "http://en.wikipedia.org/wiki/John_F._Kennedy",
+                "http://en.wikipedia.org/wiki/Nikita_Khrushchev",
+                "http://en.wikipedia.org/wiki/1960s"
+            ]
+        },
+        {
+            "id": "Transition_roman",
+            "title": "Transition of to the Roman Empire",
+            "description": "This is A HUGE Result. The Roman Empire is very well Liked and described in the Wikipedia. The Most Prominent Article is about the Constitutional Reforms of Julius Caesar, the most specian and Central Article is about the Roman dictaorship.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Julius_Caesar",
+                "http://en.wikipedia.org/wiki/Roman_Empire",
+                "http://en.wikipedia.org/wiki/Roman_Republic",
+                "http://en.wikipedia.org/wiki/Dictatorship"
+            ]
+        },
+        {
+            "id": "USA",
+            "title": "American Culture Klischee",
+            "description": "This Example contains some Topic which are clischee about the culture of the United States. The English version shows the American culture context very central. In the German version the reference to American culture is not that central.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/American_Civil_War",
+                "http://en.wikipedia.org/wiki/Baseball",
+                "http://en.wikipedia.org/wiki/Hot_dog",
+                "http://en.wikipedia.org/wiki/Lyndon_B._Johnson"
+            ]
+        },
+        {
+            "id": "Scifi_Reality",
+            "title": "Posthumanism and Reality in science Fiction",
+            "description": "This Example Shows some newer Science Fiction Writers and grandmaster Phillip K Dick. All together Write a lot about Reality and Posthumansim.\n So There Should be some Interesing Topics in the Context as well as Other Authors and Novels. ",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Posthumanism",
+                "http://en.wikipedia.org/wiki/Reality",
+                "http://en.wikipedia.org/wiki/Charles_Stross",
+                "http://en.wikipedia.org/wiki/Hannu_Rajaniemi",
+                "http://en.wikipedia.org/wiki/Philip_K._Dick"
+            ]
+        },	{
+            "id": "Intention_of_Law",
+            "title": "Intention of Law and Punishment",
+            "description": "Laws differ from cuntry to cuntry. Is this fact also recognisable in the Structure of Wikipedia?</br> This Example consists of the Law Articles and the Intentions of Criminal law punishment.</br> Try to creat the Example in English and German and see the differences.",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Prison",
+                "http://en.wikipedia.org/wiki/Criminal_law",
+                "http://en.wikipedia.org/wiki/Guilt_(law)",
+                "http://en.wikipedia.org/wiki/Remorse",
+				"http://en.wikipedia.org/wiki/Rehabilitation_(penology)"
+            ]
+        },  {
+            "id": "MainExample",
+            "title": "The Topics of this Project",
+            "description": "see yourself",
+            "Links": [
+                "http://en.wikipedia.org/wiki/Entity_linking",
+                "http://en.wikipedia.org/wiki/Linked_data",
+                "http://en.wikipedia.org/wiki/Information_retrieval",
+                "http://en.wikipedia.org/wiki/Visualization_(computer_graphics)",
+                "http://en.wikipedia.org/wiki/Force-directed_graph_drawing"
+            ]
+        }
+    ]
+}
